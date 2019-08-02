@@ -1,0 +1,28 @@
+body{
+    background: black;
+}
+
+h1{
+    background: yellow;
+    color: black;
+    padding: 40px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+}
+
+.material-icons{
+    color: white;
+}
+
+#search-field{
+    float: right;
+    color: white;
+}
+
+.btn{
+    margin-bottom: 10px;
+}
+
+#output{
+    color: white;
+}

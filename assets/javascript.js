@@ -4,14 +4,17 @@ let queryLink;
 let newButton = $("<a>");
 let adding = false;
 
-
+console.log(JSON.parse(localStorage.getItem("myCategoryList")));
 
 //Click events for buttons
 
 $(document).ready(function () {
 
     //Creating initial buttons
-
+    if (localStorage.getItem("myCategoryList") != undefined) {
+        topics = JSON.parse(localStorage.getItem("myCategoryList"));
+        console.log(topics);
+    }
     topics.forEach(function (topic) {
         newButton = $("<a>");
         newButton.addClass("waves-effect waves-light btn").attr("value", topic).text(topic);
@@ -29,6 +32,10 @@ $(document).ready(function () {
             newButton.addClass("waves-effect waves-light btn")
                 .attr("value", search)
                 .text(search);
+            topics.push(search);
+            localStorage.setItem("myCategoryList", JSON.stringify(topics));
+            console.log(JSON.stringify(topics));
+
             $("#buttons").append(newButton);
         }
     });

@@ -5,12 +5,21 @@ let newButton = $("<a>");
 let adding = false;
 
 console.log(JSON.parse(localStorage.getItem("myCategoryList")));
+console.log(localStorage.getItem("favGif"));
 
 //Click events for buttons
 
 $(document).ready(function () {
 
-    //Creating initial buttons
+    //Loading fvorite Gif
+    if (localStorage.getItem("favGif") == null) {
+        $("#fav-gif").css("color", "white").text("No favorite yet");
+    } else {
+        let favGif = $("<img>").attr("src", localStorage.getItem("favGif"));
+        $("#fav-gif").append(favGif);
+    }
+
+    //Creating initial buttons, after checking local storage for earlier versions of buttons
     if (localStorage.getItem("myCategoryList") != undefined) {
         topics = JSON.parse(localStorage.getItem("myCategoryList"));
         console.log(topics);
@@ -81,11 +90,18 @@ $(document).ready(function () {
                     $("#output").prepend(newDiv);
                 }
             });
-
     });
 
+    // Click event to switch image to moving
     $(document).on("click", "img", function () {
         $(this).siblings("img").show();
         $(this).hide();
+        let favGif = $(this).attr("src");
+        console.log(favGif);
+        localStorage.setItem("favGif", favGif);
+        let favDisplay = $("<img>").attr("src", favGif);
+
+        $("#fav-gif").empty().append(favDisplay);
+
     });
 });

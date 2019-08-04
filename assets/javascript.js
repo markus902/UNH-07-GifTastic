@@ -4,6 +4,8 @@ let queryLink;
 let newButton = $("<a>");
 let adding = false;
 
+
+
 //Click events for buttons
 
 $(document).ready(function () {
@@ -18,7 +20,7 @@ $(document).ready(function () {
     });
 
     // Creating new button
-    $("#add-btn").on("click", function (event) {
+    $("#add-btn").on("click", function () {
         if ($("#search-field").val() == "") {
             $("#search-field").attr("placeholder", "Please enter a category");
         } else {
@@ -30,7 +32,6 @@ $(document).ready(function () {
             $("#buttons").append(newButton);
         }
     });
-
 
     // Click event on button
     $(document).on("click", ".btn", function () {
@@ -47,8 +48,10 @@ $(document).ready(function () {
 
             .then(function (gifs) {
                 console.log(gifs.data);
-
-                $("#output").empty();
+                if ($("#checkbox").is(":checked") === false) {
+                    $("#output").empty();
+                    console.log("true")
+                }
                 for (i = 0; i < gifs.data.length; i++) {
                     console.log(gifs.data[0].images.fixed_height_still.url);
                     let newImgStill = $("<br><img>")
@@ -71,6 +74,7 @@ $(document).ready(function () {
                     $("#output").prepend(newDiv);
                 }
             });
+
     });
 
     $(document).on("click", "img", function () {

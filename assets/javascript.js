@@ -1,4 +1,4 @@
-let topics = ["Bratwurst", "Hulk", "Sky", "Trumpet", "Law and Order"];
+let topics = ["Monkey", "Hulk", "OMG", "Crazy Cat", "Law and Order"];
 let key = "plDeGkLT5mfMoLkcJNrZi66kXLxQ02ce";
 let queryLink;
 let newButton = $("<a>");
@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     //Loading fvorite Gif
     if (localStorage.getItem("favGif") == null) {
-        $("#fav-gif").css("color", "white").text("No favorite yet");
+        $("#fav-gif").css("color", "white").text("No favorite yet. Select a category and click on your favorite gif. We will remember your last favorite.");
     } else {
         let favGif = $("<img>").attr("src", localStorage.getItem("favGif"));
         $("#fav-gif").append(favGif);
@@ -33,24 +33,12 @@ $(document).ready(function () {
 
     // Creating new button
     $("#add-btn").on("click", function () {
-        if ($("#search-field").val() == "") {
-            $("#search-field").attr("placeholder", "Please enter a category");
-        } else {
-            newButton = $("<a>");
-            let search = $("#search-field").val().trim();
-            newButton.addClass("waves-effect waves-light btn")
-                .attr("value", search)
-                .text(search);
-            topics.push(search);
-            localStorage.setItem("myCategoryList", JSON.stringify(topics));
-            console.log(JSON.stringify(topics));
-
-            $("#buttons").append(newButton);
-        }
+        addButton();
     });
 
     // Click event on button
     $(document).on("click", ".btn", function () {
+
         console.log(this);
         let name = $(this).attr("value");
         console.log(name);
@@ -92,6 +80,18 @@ $(document).ready(function () {
             });
     });
 
+
+
+
+    // Submiting search when hitting enter
+    document.onkeyup = function (key) {
+        let checkInput = key
+        if (checkInput.keyCode == 13) {
+            console.log("yay");
+            addButton();
+        }
+    };
+
     // Click event to switch image to moving
     $(document).on("click", "img", function () {
         $(this).siblings("img").show();
@@ -102,6 +102,21 @@ $(document).ready(function () {
         let favDisplay = $("<img>").attr("src", favGif);
 
         $("#fav-gif").empty().append(favDisplay);
-
     });
 });
+
+function addButton() {
+    if ($("#search-field").val() == "") {
+        $("#search-field").attr("placeholder", "Please enter a category and hit enter");
+    } else {
+        newButton = $("<a>");
+        let search = $("#search-field").val().trim();
+        newButton.addClass("waves-effect waves-light btn")
+            .attr("value", search)
+            .text(search);
+        topics.push(search);
+        localStorage.setItem("myCategoryList", JSON.stringify(topics));
+        console.log(JSON.stringify(topics));
+        $("#buttons").append(newButton);
+    }
+}

@@ -59,7 +59,8 @@ $(document).ready(function () {
                 for (i = 0; i < gifs.data.length; i++) {
                     console.log(gifs.data[0].images.fixed_height_still.url);
                     let newImgStill = $("<br><img>")
-                        .attr("src", gifs.data[i].images.fixed_height_still.url);
+                        .attr("src", gifs.data[i].images.fixed_height_still.url)
+                        .attr("moving", gifs.data[i].images.fixed_height.url);
                     let newImgActive = $("<img>")
                         .attr("src", gifs.data[i].images.fixed_height.url)
                         .css("display", "none");
@@ -96,7 +97,7 @@ $(document).ready(function () {
     $(document).on("click", "img", function () {
         $(this).siblings("img").show();
         $(this).hide();
-        let favGif = $(this).attr("src");
+        let favGif = $(this).attr("moving");
         console.log(favGif);
         localStorage.setItem("favGif", favGif);
         let favDisplay = $("<img>").attr("src", favGif);
